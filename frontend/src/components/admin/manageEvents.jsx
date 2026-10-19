@@ -5,11 +5,11 @@ const ManageEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+   const { clubId } = useParams();
   useEffect(() => {
     fetchEvents();
   }, []);
- const { clubId } = useParams();
+
   const fetchEvents = async () => {
     try {
       setLoading(true);
@@ -45,7 +45,7 @@ const ManageEvents = () => {
   const updateStatus = async (id, newStatus) => {
     try {
       await API.patch(`/clubs/${clubId}/events/${id}`, { status: newStatus });
-      setEvents(events.map(event => 
+      setEvents(events.map(event =>
         event.id === id ? { ...event, status: newStatus } : event
       ));
     } catch (error) {
@@ -56,7 +56,6 @@ const ManageEvents = () => {
 
   if (loading) return <div className="text-center p-4">Loading events...</div>;
   if (error) return <div className="text-red-600 p-4">{error}</div>;
-
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Manage Events</h2>

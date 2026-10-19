@@ -32,6 +32,7 @@ import PDFDocument from "pdfkit";
       let title = "Participation";
       if (position === "winner") title = "Winner 🥇";
       else if (position === "runner") title = "Runner-up 🥈";
+      
 
       doc.fontSize(20).fillColor("black")
         .text(`for securing "${title}" in`, { align: "center" });

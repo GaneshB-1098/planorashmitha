@@ -8,12 +8,6 @@ const AdminDashboard = () => {
   const [selectedClub, setSelectedClub] = useState(null);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/API/clubs")
-  //     .then(res => res.json())
-  //     .then(data => setClubs(data));
-  // }, []);
-
   useEffect(() => {
   API.get("/clubs")
     .then(res => {

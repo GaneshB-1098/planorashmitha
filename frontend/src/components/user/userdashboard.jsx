@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
-
 const UserDashboard = () => {
   const [clubs, setClubs] = useState([]);
   const navigate = useNavigate();

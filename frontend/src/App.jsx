@@ -6,7 +6,7 @@ import UserDashboard from './components/user/userdashboard';
 import AdminDashboard from './components/admin/Admindashboard';
 import ManageEvents from './components/admin/manageEvents';
 import AddEvent from './components/admin/addevent';
-import Register from './components/user/register';
+import Register from './components/user/Register';
 import EventRegistrations from './components/admin/eventregistrations';
 import DashboardHome from './components/admin/DashboardHome';
 import VerifyOtp from './components/admin/VerifyOtp';
@@ -37,7 +37,7 @@ function App() {
         <Route path="add" element={<AddEvent />} />
         <Route path="registrations" element={<EventRegistrations />} /> */}
         <Route path="create-club" element={<CreateClub/>} />
-        
+
       </Route>
       <Route path="/admin/clubs/:clubId/events/:eventId/winners" element={<AdminWinnerPage />} />
       <Route path="/admin/club/:clubId" element={<ClubDashboard />} />

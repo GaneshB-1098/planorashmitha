@@ -5,7 +5,7 @@ import API from "../../services/api";
 const ClubDashboard = () => {
   const { clubId } = useParams();
   const [club, setClub] = useState(null);
- const{eventId}=useParams();
+  const{eventId}=useParams();
   useEffect(() => {
     API.get(`/clubs/${clubId}`)
       .then(res => setClub(res.data))

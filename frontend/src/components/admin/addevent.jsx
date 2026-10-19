@@ -35,7 +35,7 @@ const AddEvent = () => {
 
     try {
       const response = await API.post(`/clubs/${clubId}/addevents`, eventData );
-
+      
       console.log('Event created:', response.data);
       setSuccess('Event added successfully!');
       setEventData({ title: '', description: '', date: '', type: '' });

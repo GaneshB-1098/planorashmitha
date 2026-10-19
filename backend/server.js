@@ -277,7 +277,7 @@ app.post('/api/events/:id/eventregister', authenticateToken, async (req, res) =>
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
-
+    
     if (event.fee > 0) {
       return res.status(400).json({ error: 'Payment required' });
     }
@@ -412,7 +412,6 @@ app.post("/api/clubs/verify", authenticateToken, checkAdmin,async (req, res) => 
 //club description
 app.get('/api/clubs/:clubId', authenticateToken, checkAdmin, async (req, res) => {
   const { clubId } = req.params;
-
   const [[club]] = await db.query(
     "SELECT id, name, description FROM clubs WHERE id = ?",
     [clubId]
@@ -744,7 +743,7 @@ app.get(
   async (req, res) => {
     try {
       const clubId = Number(req.params.clubId);
-
+       
       const [events] = await db.query(`
         SELECT 
           e.*,
@@ -764,6 +763,31 @@ app.get(
   }
 );
 
+app.patch(
+  "/api/clubs/:clubId/events/:id",
+  authenticateToken,
+  checkAdmin,
+  async (req, res) => {
+    try {
+      const { id, clubId } = req.params;
+      const { status } = req.body;
+      await db.query(
+        "UPDATE events SET status = ? WHERE id = ? AND club_id = ?",
+        [status, id, clubId]
+      );
+
+      res.json({
+        message: "Event status updated successfully"
+      });
+
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Failed to update event status"
+      });
+    }
+  }
+);
 
 // Modify your event creation endpoint to include created_by
 app.post(
@@ -842,7 +866,6 @@ app.delete('/api/clubs/:clubId/events/:eventId', authenticateToken, checkAdmin, 
   const connection = await db.getConnection();
   try {
     await connection.beginTransaction();
-
     // First delete all registrations for this event
     await connection.query('DELETE FROM registrations WHERE event_id = ?', [req.params.eventId]);
     // Then delete the event
